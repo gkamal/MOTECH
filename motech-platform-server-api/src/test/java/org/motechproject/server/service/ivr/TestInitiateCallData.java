@@ -42,38 +42,14 @@ public class TestInitiateCallData {
 
     @Test
     public void TestConstructor() {
-        long messageId = 1L;
         String phone = "1001";
-        int timeOut = Integer.MAX_VALUE;
-        String vxmlUrl = "http://test.test/vxml";
-
-        CallRequest callRequest = new CallRequest(messageId,phone, timeOut,vxmlUrl);
-
-        assertEquals(messageId, callRequest.getMessageId());
+        CallRequest callRequest = new CallRequest(phone, null);
         assertEquals(phone, callRequest.getPhone());
-        assertEquals(timeOut, callRequest.getTimeOut());
-        assertEquals(vxmlUrl, callRequest.getVxmlUrl());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void TestConstructorNullPhone() {
-        long messageId = 1L;
         String phone = null;
-        int timeOut = Integer.MAX_VALUE;
-        String vxmlUrl = "http://test.test/vxml";
-
-        CallRequest callRequest = new CallRequest(messageId,phone, timeOut,vxmlUrl);
-
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void TestConstructorNullVxmlUrl() {
-        long messageId = 1L;
-        String phone = "1001";
-        int timeOut = Integer.MAX_VALUE;
-        String vxmlUrl= null;
-
-        CallRequest callRequest = new CallRequest(messageId,phone, timeOut,vxmlUrl);
-
+        CallRequest callRequest = new CallRequest(phone, null);
     }
 }
