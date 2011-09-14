@@ -61,18 +61,19 @@ import org.motechproject.server.service.ivr.CallRequest;
 public class KookooCallServiceImplTest {
 
 	private KookooCallServiceImpl ivrService = new KookooCallServiceImpl();
+	private final String CALLBACK_URL = "http://localhost/tama/ivr/reply";
 
 	@Test
 	public void testInitiateCall() throws Exception {
 
-		CallRequest callRequest = new CallRequest("1001", null);
+		CallRequest callRequest = new CallRequest("1001", null, CALLBACK_URL);
 		ivrService = Mockito.spy(ivrService);
 		Mockito.doNothing().when(ivrService)
-				.dial(Mockito.anyString(), anyMap());
+				.dial(Mockito.anyString(), anyMap(), Mockito.anyString());
 
 		ivrService.initiateCall(callRequest);
 		Mockito.verify(ivrService, Mockito.times(1)).dial(
-				Matchers.eq(callRequest.getPhone()), Mockito.anyMap());
+				Matchers.eq(callRequest.getPhone()), Mockito.anyMap(), Mockito.eq(CALLBACK_URL));
 
 	}
 
@@ -95,14 +96,13 @@ public class KookooCallServiceImplTest {
         properties = new Properties();
         properties.setProperty(KookooCallServiceImpl.KOOKOO_OUTBOUND_URL, "http://kookoo/outbound.php");
         properties.setProperty(KookooCallServiceImpl.KOOKOO_API_KEY, "KKbedce53758c2e0b0e9eed7191ec2a466");
-        properties.setProperty(KookooCallServiceImpl.APPLICATION_URL, "http://localhost/tama/ivr/reply");
         ivrService = new KookooCallServiceImpl(properties, httpClient);
     }
 
     @Test
     public void shouldMakeACallWithThePhoneNumberAndEmptyTamaDataParamsProvided() throws IOException {
         Map<String, String> params = new HashMap<String, String>();
-        ivrService.initiateCall(new CallRequest(phoneNumber, params));
+        ivrService.initiateCall(new CallRequest(phoneNumber, params, CALLBACK_URL));
         verify(httpClient).executeMethod(argThat(new GetMethodMatcher("http://kookoo/outbound.php?api_key=KKbedce53758c2e0b0e9eed7191ec2a466&url=http%3A%2F%2Flocalhost%2Ftama%2Fivr%2Freply%3FtamaData%3D%7B%7D&phone_no=9876543211")));
     }
 
@@ -110,7 +110,7 @@ public class KookooCallServiceImplTest {
     public void shouldMakeACallWithPhoneNumberAndSomeTamaDataParams() throws IOException {
         Map<String, String> params = new HashMap<String, String>();
         params.put("hero", "batman");
-        ivrService.initiateCall(new CallRequest(phoneNumber, params));
+        ivrService.initiateCall(new CallRequest(phoneNumber, params, CALLBACK_URL));
         verify(httpClient).executeMethod(argThat(new GetMethodMatcher("http://kookoo/outbound.php?api_key=KKbedce53758c2e0b0e9eed7191ec2a466&url=http%3A%2F%2Flocalhost%2Ftama%2Fivr%2Freply%3FtamaData%3D%7B%22hero%22%3A%22batman%22%7D&phone_no=9876543211")));
     }
 

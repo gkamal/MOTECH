@@ -40,16 +40,24 @@ import static org.junit.Assert.assertEquals;
  */
 public class TestInitiateCallData {
 
-    @Test
+    private static final String CALLBACK_URL = "http://10.0.1.29:8080/m/module/ar/vxml/ar?r=1";
+
+	@Test
     public void TestConstructor() {
         String phone = "1001";
-        CallRequest callRequest = new CallRequest(phone, null);
+        CallRequest callRequest = new CallRequest(phone, null, CALLBACK_URL);
         assertEquals(phone, callRequest.getPhone());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void TestConstructorNullPhone() {
         String phone = null;
-        CallRequest callRequest = new CallRequest(phone, null);
+        CallRequest callRequest = new CallRequest(phone, null, CALLBACK_URL);
     }
+    @Test(expected = IllegalArgumentException.class)
+	public void TestConstructorNullVxmlUrl() {
+	    String phone = "1001";
+	    CallRequest callRequest = new CallRequest(phone, null, null);
+	 }
+
 }

@@ -51,10 +51,10 @@ import java.util.Map;
  */
 public class CallRequest implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
     private String phone;
-    //private String vxmlUrl;
+    private String callBackUrl;
     
     private Map<String, String> payload = new HashMap<String, String>();
 
@@ -68,18 +68,20 @@ public class CallRequest implements Serializable {
      *
      * @param messageId
      * @param phone
-     * @param timeOut
-     * @param vxmlUrl
+     * @param callBackUrl
      */
-    public CallRequest(String phone, Map<String, String> params) {
+    public CallRequest(String phone, Map<String, String> params, String callBackUrl) {
 
-         if (phone == null) {
+        if (phone == null) {
             throw new IllegalArgumentException("phone can not be null");
         }
- 
+        if (callBackUrl == null) {
+        	throw new IllegalArgumentException("callBackUrl can not be null");
+        }
         this.phone = phone;
         if (params != null)
         	this.payload.putAll(params);
+        this.callBackUrl = callBackUrl;
         
         this.onSuccessEvent = null;
         this.onBusyEvent = null;
@@ -139,4 +141,9 @@ public class CallRequest implements Serializable {
 	public void setPayload(Map<String, String> payload) {
 		this.payload = payload;
 	}
+
+    public String getCallBackUrl() {
+		return callBackUrl;
+	}
+
 }

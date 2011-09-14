@@ -58,7 +58,8 @@ import static org.mockito.Mockito.mock;
 @ContextConfiguration(locations={"/testIVRAppContext.xml"})
 public class TestIVRService {
 
-    @Autowired
+    private static final String CALLBACK_URL = "http://localhost";
+	@Autowired
     private IVRServiceAsteriskImpl ivrService;
 
     @Test
@@ -67,7 +68,7 @@ public class TestIVRService {
         AsteriskServer asteriskServerMock = mock(AsteriskServer.class);
         ivrService.setAsteriskServer(asteriskServerMock);
 
-        CallRequest callRequest = new CallRequest("1001", null);
+        CallRequest callRequest = new CallRequest("1001", null, CALLBACK_URL);
 
         ivrService.initiateCall(callRequest);
 
@@ -83,7 +84,7 @@ public class TestIVRService {
     @Test (expected = CallInitiationException.class)
     public void testInitiateCallManagerException() throws Exception {
 
-        CallRequest callRequest = new CallRequest("1001",null);
+        CallRequest callRequest = new CallRequest("1001",null, CALLBACK_URL);
 
         AsteriskServer asteriskServerMock = mock(AsteriskServer.class);
         Mockito.doThrow(new ManagerCommunicationException("", new Exception())).when(asteriskServerMock)
@@ -110,7 +111,7 @@ public class TestIVRService {
 @Test (expected = CallInitiationException.class)
     public void testInitiateCallChannelException() throws Exception {
 
-        CallRequest callRequest = new CallRequest("0000", null);
+        CallRequest callRequest = new CallRequest("0000", null, CALLBACK_URL);
 
         AsteriskServer asteriskServerMock = mock(AsteriskServer.class);
         Mockito.doThrow(new NoSuchChannelException("no channel")).when(asteriskServerMock)

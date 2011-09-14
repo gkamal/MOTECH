@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 public class KookooCallServiceImpl implements IVRService{
     public static final String KOOKOO_OUTBOUND_URL = "kookoo.outbound.url";
     public static final String KOOKOO_API_KEY = "kookoo.api.key";
-    public static final String APPLICATION_URL = "application.url";
+
 
     @Autowired
     @Qualifier("ivrProperties")
@@ -34,10 +34,10 @@ public class KookooCallServiceImpl implements IVRService{
         this.httpClient = httpClient;
     }
 
-    public void dial(String phoneNumber, Map<String, String> params) {
+    public void dial(String phoneNumber, Map<String, String> params, String callBackUrl) {
         try {
             JSONObject json = new JSONObject(params);
-            String applicationUrl = properties.get(APPLICATION_URL) + "?tamaData=" + json.toString();
+            String applicationUrl = callBackUrl + "?tamaData=" + json.toString();
             applicationUrl = URLEncoder.encode(applicationUrl, "UTF-8");
 
             GetMethod getMethod = new GetMethod(properties.get(KOOKOO_OUTBOUND_URL).toString());
@@ -55,6 +55,6 @@ public class KookooCallServiceImpl implements IVRService{
 	@Override
 	public void initiateCall(CallRequest callRequest) {
 		if (callRequest == null) throw new IllegalArgumentException("Missing call request");
-		dial(callRequest.getPhone(), callRequest.getPayload());
+		dial(callRequest.getPhone(), callRequest.getPayload(), callRequest.getCallBackUrl());
 	}
 }
