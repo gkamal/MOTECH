@@ -82,7 +82,7 @@ public class MotechAsteriskCallBackImplTest {
 
         when(asteriskChannel.getCallDetailRecord()).thenReturn(asteriskCallDetailRecord);
 
-       // PrivateAccessor.setField(motechAsteriskCallBack, "eventRelay", eventRelay);
+        PrivateAccessor.setField(motechAsteriskCallBack, "eventRelay", eventRelay);
     }
 
     @Test
@@ -91,7 +91,7 @@ public class MotechAsteriskCallBackImplTest {
 
         motechAsteriskCallBack.onBusy(asteriskChannel);
 
-        //verify(eventRelay, times(1)).sendEventMessage(event);
+        verify(eventRelay, times(1)).sendEventMessage(event);
     }
 
     @Test

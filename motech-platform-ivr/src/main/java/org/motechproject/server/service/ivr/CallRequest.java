@@ -31,11 +31,11 @@
  */
 package org.motechproject.server.service.ivr;
 
-import org.motechproject.model.MotechEvent;
-
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.motechproject.model.MotechEvent;
 
 /**
  * This class is used to request a call from the IVR system
