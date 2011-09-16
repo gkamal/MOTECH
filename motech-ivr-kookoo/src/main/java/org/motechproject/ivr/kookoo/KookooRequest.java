@@ -34,8 +34,8 @@ public class KookooRequest implements IVRRequest{
 	}
 
 	@Override
-	public IVREvent getEvent() {
-        return IVREvent.keyOf(event);
+	public String getEvent() {
+        return event;
     }
 
     public KookooRequest() {

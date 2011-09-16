@@ -1,7 +1,5 @@
 package org.motechproject.server.service.ivr;
 
-import java.util.Map;
-
 public interface IVRRequest {
 	public static enum CallDirection {
 		Inbound, Outbound
@@ -15,7 +13,7 @@ public interface IVRRequest {
 
 	public void setCid(String cid);
 
-	public IVREvent getEvent();
+	public String getEvent();
 
 	public void setEvent(String event);
 
