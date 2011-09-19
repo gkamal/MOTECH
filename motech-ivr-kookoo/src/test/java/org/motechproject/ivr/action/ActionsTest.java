@@ -1,7 +1,6 @@
-package org.motechproject.ivr.actions;
+package org.motechproject.ivr.action;
 
 import org.junit.Test;
-import org.motechproject.ivr.action.Actions;
 import org.motechproject.ivr.action.event.BaseEventAction;
 import org.motechproject.ivr.action.event.HangupEventAction;
 import org.motechproject.ivr.action.event.NewCallEventAction;

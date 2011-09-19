@@ -24,7 +24,6 @@ public class NewCallEventAction extends BaseEventAction {
         this.messages = messages;
         this.userNotFoundAction = userNotFoundAction;
         this.eventService = eventService;
-
     }
 
     @Override

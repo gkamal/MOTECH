@@ -21,8 +21,8 @@ public abstract class BaseAction {
         return new KookooIVRResponseBuilder().withHangUp().createWithDefaultLanguage(messages, ivrRequest.getSessionId());
     }
 
-    protected String dtmfResponseWithWav(IVRRequest ivrRequest, String key) {
-        return new KookooIVRResponseBuilder().collectDtmf().withPlayAudios(key).createWithDefaultLanguage(messages, ivrRequest.getSessionId() );
+    protected String dtmfResponseWithWav(IVRRequest ivrRequest, String wavFile) {
+        return new KookooIVRResponseBuilder().collectDtmf().withPlayAudios(wavFile).createWithDefaultLanguage(messages, ivrRequest.getSessionId() );
     }
 
     protected IVRSession getIVRSession(HttpServletRequest request) {

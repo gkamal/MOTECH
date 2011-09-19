@@ -56,4 +56,8 @@ public class IVRCallEvent implements Event {
     public void setData(Map<String, String> data) {
         this.data = data;
     }
+
+    public Map<String, String> getRequestParams() {
+        return requestParams;
+    }
 }
